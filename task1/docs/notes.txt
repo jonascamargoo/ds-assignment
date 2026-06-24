@@ -1,0 +1,28 @@
+  TP01_Grupo06.ipynb
+  É o trabalho em si — onde o código roda. Você abre esse arquivo no Jupyter, executa célula por célula (ou tudo de uma vez) e ele reproduz toda a análise do zero: carrega os CSVs brutos, diagnostica os problemas, limpa, integra as três bases, cria os
+  atributos novos, gera os gráficos e exporta os resultados. É o único arquivo que você precisa entregar como código.
+
+  relatorio_TP01_Grupo06.md
+  É o texto escrito que acompanha o notebook. Explica por que cada decisão foi tomada — por que preservar NaN em vez de substituir por 0, por que usar left join, por que cada tipo de gráfico foi escolhido. O notebook mostra o como; o relatório mostra o
+  porquê. Serve de base para montar os slides de apresentação.
+
+  data/raw/ (3 CSVs)
+  Os dados originais exatamente como foram recebidos, sem nenhuma modificação. Ficam separados para garantir que sempre é possível voltar ao ponto de partida. O notebook lê daqui mas nunca escreve aqui.
+
+  data/processed/base_integrada_Grupo06.csv
+  O produto final do pré-processamento: as três bases unidas em uma só, já limpa, com os atributos novos calculados e as transformações aplicadas. É o terceiro entregável do trabalho além do notebook e do relatório.
+
+  data/processed/visualizacoes/ (10 PNGs)
+  As imagens dos gráficos P1–P10, exportadas automaticamente pelo notebook. Existem separadas para facilitar copiar para os slides sem precisar abrir o notebook.
+
+  docs/CDI_-_Trabalho_Prtico_01.pdf
+  O enunciado do trabalho que o professor disponibilizou. Fica aqui para referência — se surgir dúvida sobre o que era pedido, é onde consultar.
+
+  requirements.txt
+  Lista todas as bibliotecas Python necessárias com versão exata. Serve para qualquer pessoa (ou máquina) recriar o ambiente idêntico ao que foi usado com um único comando: pip install -r requirements.txt.
+
+  .venv/
+  O ambiente virtual Python isolado. Garante que as bibliotecas instaladas para este projeto não conflitam com outros projetos na máquina. Não é versionado (está no .gitignore) porque pode ser recriado a qualquer momento pelo requirements.txt.
+
+  README.md
+  O cartão de visita do repositório. Quem abrir o projeto pela primeira vez lê o README e já entende o que é, o que tem dentro e como rodar. Também documenta as principais decisões técnicas em formato de tabela resumida.

@@ -1,0 +1,21 @@
+TP02 - Mineracao de Dados - Grupo06
+Bases de dados tratadas (Problema B - SISU Lista de Espera 2/2023)
+
+Suba os 5 arquivos da pasta ./bases_tratadas/ no Google Drive (pasta do grupo,
+compartilhada como "qualquer pessoa com o link pode visualizar") e cole o link
+de cada um na linha correspondente abaixo.
+
+[1] base_tratada_consolidada_Grupo06.csv  (populacao do Problema B: features + alvo EFETIVOU, antes do split)
+    LINK: <colar aqui>
+
+[2] treino_Grupo06.csv                     (conjunto de treino - 60%, Holdout estratificado, random_state=42)
+    LINK: <colar aqui>
+
+[3] validacao_Grupo06.csv                  (conjunto de validacao - 20%, usado no tuning de hiperparametros)
+    LINK: <colar aqui>
+
+[4] teste_Grupo06.csv                      (conjunto de teste - 20%, avaliacao final)
+    LINK: <colar aqui>
+
+[5] treino_balanceado_Grupo06.csv          (treino apos undersampling - usado no fit dos modelos)
+    LINK: <colar aqui>
