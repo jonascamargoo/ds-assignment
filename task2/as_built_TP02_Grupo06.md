@@ -4,7 +4,7 @@
 **Trabalho:** TP02 — Mineração de Dados
 **Grupo:** 06
 **Tema:** Previsão de efetivação de matrícula na Lista de Espera 2/2023 do SISU (Problema B)
-**Data de referência:** 2026-06-24
+**Data de referência:** 2026-07-01
 
 > Este documento descreve **o que foi efetivamente construído** (as-built): decisões de projeto, pipeline, parâmetros e resultados reais das execuções. Os números aqui refletem a saída dos notebooks com `random_state = 42`.
 
@@ -76,6 +76,8 @@ A solução foi dividida em **3 notebooks autossuficientes**, conectados pelas *
 | `nb_PreProcessamento_TP02_Grupo06.ipynb` | 2 | base bruta | **5 bases tratadas** |
 | `nb_Modelagem_TP02_Grupo06.ipynb` | 3–5 | 5 bases tratadas | ranking, ROC, importâncias |
 
+> **Entrega:** para o envio, os três notebooks foram **unificados** em `nb_Completo_TP02_Grupo06.ipynb` (versão **Google Colab**), mantendo o mesmo pipeline — porém em fluxo único **em memória** (sem a ponte por CSV entre notebooks). A Etapa 2 do notebook único ainda **exporta** as 5 bases tratadas.
+
 ---
 
 ## 5. Definição da população e da variável-alvo
@@ -141,7 +143,7 @@ base["EFETIVOU"] = (base["MATRICULA"] == "EFETIVADA").astype(int)
 
 | Coluna | Faltante | Tratamento | Justificativa |
 |---|---|---|---|
-| `TP_COTA` | 56,3% | `NaN → "AMPLA"` (constante) | NaN = sem cota; constante não causa leakage |
+| `TP_COTA` | 57,3% | `NaN → "AMPLA"` (constante) | NaN = sem cota; constante não causa leakage |
 | `NOTA_CORTE`, `MARGEM` | 2.583 (5,8%) | Mediana **dentro do pipeline** | Estatística ajustada só no treino (sem leakage) |
 | `PERCENTUAL_BONUS` | 94,7% | Descartada | Ausência excessiva |
 
@@ -263,34 +265,30 @@ Saídas geradas: **curva ROC com os 6 modelos** (`figs/roc_problemaB.png`), **ma
 
 - **Ambiente:** Python (`.venv`), scikit-learn 1.9.0, pandas 2.2.2, numpy 1.26.4, matplotlib 3.9.0, seaborn 0.13.2.
 - **Semente:** `RANDOM_STATE = 42` em todos os splits, undersampling e modelos.
-- **Ordem de execução:** `nb_EDA` → `nb_PreProcessamento` (gera `bases_tratadas/`) → `nb_Modelagem` (consome).
-
-```bash
-jupyter nbconvert --to notebook --execute --inplace \
-  --ExecutePreprocessor.kernel_name=python3 \
-  nb_PreProcessamento_TP02_Grupo06.ipynb
-jupyter nbconvert --to notebook --execute --inplace \
-  --ExecutePreprocessor.kernel_name=python3 \
-  nb_Modelagem_TP02_Grupo06.ipynb
-```
+- **Notebook único (entrega):** abrir `nb_Completo_TP02_Grupo06.ipynb` no **Google Colab** → *Ambiente de execução → Executar tudo*. Ordem interna: EDA → Pré-processamento (exporta `bases_tratadas/`) → Modelagem.
+- Localmente: `jupyter nbconvert --to notebook --execute --inplace nb_Completo_TP02_Grupo06.ipynb` (a partir da pasta com o CSV bruto).
 
 ---
 
 ## 12. Estrutura de entregáveis
 
+Entrega final — pasta compartilhada no Google Drive:
+
 ```
-task2/
-├── nb_EDA_TP02_Grupo06.ipynb
-├── nb_PreProcessamento_TP02_Grupo06.ipynb
-├── nb_Modelagem_TP02_Grupo06.ipynb
-├── bases_tratadas/            (5 CSVs tratados → Drive)
-├── figs/                      (9 PNGs: 6 EDA + ROC + confusão + importância)
-├── dbs_TP02.txt               (links do Drive das bases)
-└── as_built_TP02_Grupo06.md   (este documento)
+TP02_Grupo06/
+├── nb_Completo_TP02_Grupo06.ipynb   (notebook único — versão Google Colab)
+├── slides_TP02_Grupo06.pdf          (apresentação)
+├── as_built_TP02_Grupo06.md         (este documento)
+├── dbs_TP02.txt                     (links do Drive das bases tratadas)
+└── dataset/                         (5 bases tratadas — também disponíveis por link no dbs_TP02.txt)
+    ├── base_tratada_consolidada_Grupo06.csv
+    ├── treino_Grupo06.csv
+    ├── validacao_Grupo06.csv
+    ├── teste_Grupo06.csv
+    └── treino_balanceado_Grupo06.csv
 ```
 
-**Pacote final (`TP02_Grupo06.zip`):** `slides_TP02_Grupo06.pdf` + os 3 notebooks + `dbs_TP02.txt`.
-**Pendências:** subir as bases ao Drive e preencher `dbs_TP02.txt`; produzir os slides (Seção 11).
+Os três notebooks modulares (EDA / Pré-processamento / Modelagem) foram **unificados** no notebook único acima; as figuras da EDA e da avaliação são geradas na própria execução.
 
 ---
 
